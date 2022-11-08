@@ -4,23 +4,23 @@ const express = require("express");
 
 const router = require("./routes/Router");
 const mongoose = require("mongoose");
+const Article = require("./models/article");
+const method = require("method-override");
 
 const app = express();
 const port = 3000;
 
-//middlewares
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.urlencoded({ extended: false }));
+// app.use(express.static("public"));
 app.set("view engine", "ejs");
+app.use(method("_method"));
 
-const schema = new mongoose.Schema({ name: "string", size: "string" });
-const Tank = mongoose.model("Tank", schema);
+app.use("/articles", router);
 
-//routes
-
-app.use("/", router);
-
-//server config
+app.get("/", async (req, res) => {
+  const articles = await Article.find().sort({ createdAt: "desc" }).limit(3);
+  res.render("index", { articles: articles });
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
@@ -29,5 +29,3 @@ app.listen(port, () => {
     .then(() => console.log("DB connected"))
     .catch((error) => console.error("DB connection error!", error));
 });
-
-//sT3BMC3FC9JsHhKL

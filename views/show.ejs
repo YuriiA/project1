@@ -1,0 +1,22 @@
+<%- include ("./partials/header") %>
+
+<div class="container">
+  <h1 class="mb-1"><%=article.title %></h1>
+  <div class="text-muted mb-2">
+    <%= article.createdAt.toLocaleDateString() %>
+  </div>
+  <img src="<%=article.img%>" alt="blog img" />
+
+  <div><%=article.description %></div>
+  <a href="/articles/edit/<%=article.id %>" class="btn btn-info mt-3">Edit</a>
+
+  <form
+    action="/articles/<%=article.id %>?_method=DELETE"
+    method="POST"
+    class="d-inline"
+  >
+    <button type="submit" class="btn btn-danger mt-3">Delete</button>
+  </form>
+</div>
+
+<%-include ("./partials/footer") %>

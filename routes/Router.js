@@ -1,18 +1,48 @@
 const express = require("express");
 const router = express.Router();
+const Article = require("./../models/article");
 
-// middleware that is specific to this router
-router.use((req, res, next) => {
-  console.log("Time: ", Date.now());
-  next();
+router.get("/newPost", (req, res) => {
+  res.render("newPost", { article: new Article() });
 });
-// define the home page route
-router.get("/", (req, res) => {
-  res.render("index");
+router.get("/:id", async (req, res) => {
+  const article = await Article.findById(req.params.id);
+  if (article == null) res.redirect("/");
+  res.render("show", { article: article });
 });
-// define the about route
-router.get("/about", (req, res) => {
-  res.render("about");
+
+router.post("/", async (req, res) => {
+  let article = new Article({
+    title: req.body.title,
+    description: req.body.description,
+    img: req.body.img,
+  });
+  try {
+    article = await article.save();
+    res.redirect(`/articles/${article.id}`);
+  } catch (error) {
+    console.log(error);
+    res.render("newPost", { article: article });
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  await Article.findByIdAndDelete(req.params.id);
+  res.redirect("/");
+});
+
+router.get("/edit/:id", async (req, res) => {
+  const data = await Article.findById(req.params.id);
+  res.render("edit", { article: data });
+});
+
+router.put("/:id", async (req, res) => {
+  const article = await Article.findByIdAndUpdate(req.params.id, {
+    title: req.body.title,
+    description: req.body.description,
+    img: req.body.img,
+  });
+  res.redirect("/");
 });
 
 router.get("/asia", (req, res) => {

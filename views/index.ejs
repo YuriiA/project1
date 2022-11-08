@@ -1,5 +1,20 @@
 <%- include ("./partials/header") %>
-<form class="d-flex" role="search">
-  <button class="btn btn-outline-success mt-3" type="submit">New post</button>
-</form>
-<%-include ("./partials/footer") %>
+
+<div class="container">
+  <a href="articles/newPost" class="btn btn-outline-success mt-3">New post</a>
+</div>
+<% articles.forEach(article => { %>
+<div class="card mt-4">
+  <div class="card-body">
+    <h4 class="card-title"><%= article.title %></h4>
+    <div class="card-subtitle text-muted mb-2">
+      <%= article.createdAt.toLocaleDateString() %>
+    </div>
+    <a href="articles/<%=article.id%>" class="btn btn-outline-primary"
+      >Read more</a
+    >
+    <!-- <div class="card-text mb-2"><%= article.description %></div> -->
+  </div>
+</div>
+
+<% }) %> <%-include ("./partials/footer") %>
