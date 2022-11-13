@@ -5,13 +5,14 @@ const express = require("express");
 const router = require("./routes/Router");
 const mongoose = require("mongoose");
 const Article = require("./models/article");
+// const Category = require("./models/Category");
 const method = require("method-override");
 
 const app = express();
 const port = 3000;
 
-app.use(express.urlencoded({ extended: false }));
-// app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.use(method("_method"));
 

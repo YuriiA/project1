@@ -1,20 +1,69 @@
 <%- include ("./partials/header") %>
+<a href="articles/newPost" class="btn btn-secondary mt-3">New post</a>
+<!-- category start -->
 
-<div class="container">
-  <a href="articles/newPost" class="btn btn-outline-success mt-3">New post</a>
-</div>
-<% articles.forEach(article => { %>
-<div class="card mt-4">
-  <div class="card-body">
-    <h4 class="card-title"><%= article.title %></h4>
-    <div class="card-subtitle text-muted mb-2">
-      <%= article.createdAt.toLocaleDateString() %>
+<div class="row row-cols-5 g-2 g-lg-3 py-4">
+  <a href="articles/asia" class="col text-center category__link">
+    <div class="category__img shadow">
+      <img src="/img/asia.jpeg" alt=" image" Loading="lazy" />
     </div>
-    <a href="articles/<%=article.id%>" class="btn btn-outline-primary"
-      >Read more</a
-    >
-    <!-- <div class="card-text mb-2"><%= article.description %></div> -->
+    <div class="pt-1">Asia</div>
+  </a>
+
+  <a href="articles/europe" class="col text-center category__link">
+    <div class="category__img shadow">
+      <img src="/img/europe.jpeg" alt=" image" Loading="lazy" />
+    </div>
+    <div class="pt-1">Europe</div>
+  </a>
+
+  <a href="articles/asia" class="col text-center category__link">
+    <div class="category__img shadow">
+      <img src="/img/africa.jpeg" alt=" image" Loading="lazy" />
+    </div>
+    <div class="pt-1">Africa</div>
+  </a>
+
+  <a href="articles/america" class="col text-center category__link">
+    <div class="category__img shadow">
+      <img src="/img/america.jpeg" alt=" image" Loading="lazy" />
+    </div>
+    <div class="pt-1">America</div>
+  </a>
+  <a href="articles/all" class="col text-center category__link">
+    <div class="category__img shadow">
+      <img src="/img/viewall.jpeg" alt=" image" Loading="lazy" />
+    </div>
+    <div class="pt-1">View all</div>
+  </a>
+</div>
+<!-- category end -->
+
+<div class="container"></div>
+
+<!-- Latest start -->
+<h2 class="mt-3">Latest travels</h2>
+<div class="row row-cols-4 g-2 g-lg-3 m-3">
+  <% articles.forEach(article => { %>
+  <div class="card card-body mt-2 ms-2 bg-light">
+    <div class="card-body">
+      <h4 class="card-title"><%= article.title %></h4>
+      <div class="card-subtitle text-muted mb-2">
+        <p>Created at <%= article.createdAt.toLocaleDateString() %></p>
+      </div>
+      <div class="category__img category__img--large shadow">
+        <img src="<%= article.img %>" alt=" image" Loading="lazy" />
+      </div>
+      <a
+        href="articles/<%=article.id%>"
+        class="btn btn-secondary category__link"
+        >Read more</a
+      >
+    </div>
   </div>
+
+  <% }) %>
 </div>
 
-<% }) %> <%-include ("./partials/footer") %>
+<!-- Latest end -->
+<%-include ("./partials/footer") %>

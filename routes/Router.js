@@ -2,6 +2,32 @@ const express = require("express");
 const router = express.Router();
 const Article = require("./../models/article");
 
+router.use(express.static("public"));
+
+router.get("/asia", async (req, res) => {
+  const articles = await Article.find({ region: "asia" });
+
+  res.render("asia", { articles: articles });
+});
+
+router.get("/europe", async (req, res) => {
+  const articles = await Article.find({ region: "europe" });
+  res.render("europe", { articles: articles });
+});
+router.get("/africa", async (req, res) => {
+  const articles = await Article.find({ region: "africa" });
+  res.render("africa", { articles: articles });
+});
+router.get("/america", async (req, res) => {
+  const articles = await Article.find({ region: "america" });
+  res.render("america", { articles: articles });
+});
+
+router.get("/all", async (req, res) => {
+  const articles = await Article.find().sort({ createdAt: "desc" });
+  res.render("allPosts", { articles: articles });
+});
+
 router.get("/newPost", (req, res) => {
   res.render("newPost", { article: new Article() });
 });
@@ -14,6 +40,7 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   let article = new Article({
     title: req.body.title,
+    region: req.body.region,
     description: req.body.description,
     img: req.body.img,
   });
@@ -39,23 +66,11 @@ router.get("/edit/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const article = await Article.findByIdAndUpdate(req.params.id, {
     title: req.body.title,
+    region: req.body.region,
     description: req.body.description,
     img: req.body.img,
   });
   res.redirect("/");
-});
-
-router.get("/asia", (req, res) => {
-  res.render("asia");
-});
-router.get("/europe", (req, res) => {
-  res.render("europe");
-});
-router.get("/africa", (req, res) => {
-  res.render("africa");
-});
-router.get("/america", (req, res) => {
-  res.render("america");
 });
 
 module.exports = router;

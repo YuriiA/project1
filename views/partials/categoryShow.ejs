@@ -1,0 +1,21 @@
+<div class="row row-cols-3 g-2 g-lg-3 m-3">
+  <% articles.forEach(article => { %>
+  <a href="./<%=article.id%>" class="category__link">
+    <div class="card card-body bg-light">
+      <div class="card-body">
+        <h4 class="card-title"><%= article.title %></h4>
+        <div class="card-subtitle text-muted mb-2"></div>
+        <div>
+          <img
+            src="<%= article.img %>"
+            height="300px"
+            width="300px"
+            alt=" image"
+            Loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </a>
+  <% }) %>
+</div>
