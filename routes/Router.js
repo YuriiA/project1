@@ -5,21 +5,21 @@ const Article = require("./../models/article");
 router.use(express.static("public"));
 
 router.get("/asia", async (req, res) => {
-  const articles = await Article.find({ region: "asia" });
+  const articles = await Article.find({ region: "Asia" });
 
   res.render("asia", { articles: articles });
 });
 
 router.get("/europe", async (req, res) => {
-  const articles = await Article.find({ region: "europe" });
+  const articles = await Article.find({ region: "Europe" });
   res.render("europe", { articles: articles });
 });
 router.get("/africa", async (req, res) => {
-  const articles = await Article.find({ region: "africa" });
+  const articles = await Article.find({ region: "Africa" });
   res.render("africa", { articles: articles });
 });
 router.get("/america", async (req, res) => {
-  const articles = await Article.find({ region: "america" });
+  const articles = await Article.find({ region: "The Americas" });
   res.render("america", { articles: articles });
 });
 
